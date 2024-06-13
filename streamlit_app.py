@@ -28,7 +28,7 @@ def get_tweet_prediction(tweet):
 
 def get_user_prediction(username):
     try:
-        response = requests.get('http://127.0.0.1:8000/predict-user',
+        response = requests.get('https://twitpol-ciuj3kmdsa-ew.a.run.app',
                                 params={'username': username})
 
 # Raise an exception for non-200 status codes
