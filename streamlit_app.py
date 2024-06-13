@@ -13,7 +13,7 @@ st.title("Twitpol - Political Sentiment Predictor")
 
 def get_tweet_prediction(tweet):
     try:
-        response = requests.get('http://127.0.0.1:8000/predict',
+        response = requests.get('https://twitpol-ciuj3kmdsa-ew.a.run.app/predict',
                                 params={'tweet': tweet})
 
 # Raise an exception for non-200 status codes
@@ -28,7 +28,7 @@ def get_tweet_prediction(tweet):
 
 def get_user_prediction(username):
     try:
-        response = requests.get('https://twitpol-ciuj3kmdsa-ew.a.run.app/',
+        response = requests.get('https://twitpol-ciuj3kmdsa-ew.a.run.app/predict-user',
                                 params={'username': username})
 
 # Raise an exception for non-200 status codes
