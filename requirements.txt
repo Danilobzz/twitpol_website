@@ -1,0 +1,8 @@
+streamlit
+pandas
+fastapi
+uvicorn
+watchdog
+nltk
+
+google-cloud-bigquery=3.24.0
