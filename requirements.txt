@@ -5,3 +5,4 @@ uvicorn
 watchdog
 nltk
 google-cloud-bigquery==3.24.0
+plotly
