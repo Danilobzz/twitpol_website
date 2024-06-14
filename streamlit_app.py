@@ -93,11 +93,11 @@ else:
             st.write(prediction)
             if prediction:
                 df = pd.DataFrame([{'Name':[user], "Neutral": [prediction["Neutral"]], "Democrats":[prediction["Democratic"]], "Republicans": [prediction["Republican"]]}])
-                st.dataframe(df)
+                #st.dataframe(df)
                 df = pd.DataFrame(prediction.items(), columns=['Political Sentiment', 'Count'])
-                df_melted = df.melt(id_vars=["Name"], value_vars=["Neuteral", "Democrats", "Republicans"],
-                                        var_name="Political Sentiment", value_name="Count")
-                st.write(df)
+                #df_melted = df.melt(id_vars=["Name"], value_vars=["Neuteral", "Democrats", "Republicans"],
+                 #                       var_name="Political Sentiment", value_name="Count")
+                #st.write(df)
                 df.columns = ["Name", "Neutral", "Democrats", "Republicans"]
                 st.dataframe(df)
                 most_common_sentiment = df[['Neutral', 'Democrats', 'Republicans']].idxmax(axis=1)[0]
