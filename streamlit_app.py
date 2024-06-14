@@ -93,6 +93,7 @@ else:
             st.write(prediction)
             if prediction:
                 df = pd.DataFrame(prediction.items(), columns=['Political Sentiment', 'Count'])
+                st.write(df)
                 df.columns = ["Name", "Neutral", "Democrats", "Republicans"]
                 st.dataframe(df)
                 most_common_sentiment = df[['Neutral', 'Democrats', 'Republicans']].idxmax(axis=1)[0]
