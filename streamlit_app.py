@@ -73,7 +73,8 @@ else:
         if not df_results.empty:
             # User exists in BigQuery, display the stored results
             st.write("Results:")
-            st.write(df_results)
+            df_results.columns = ["Name", "Neuteral", "Democrats", "Republicans"]
+
 
             df_melted = df_results.melt(id_vars=["name"], value_vars=["neu", "dem", "rep"],
                                         var_name="Political Sentiment", value_name="Count")
@@ -90,7 +91,8 @@ else:
             prediction = get_user_prediction(user)
             if prediction:
                 df = pd.DataFrame(prediction.items(), columns=['Political Sentiment', 'Count'])
-                most_common_sentiment = df_results[['neu', 'dem', 'rep']].idxmax(axis=1)[0]
+                df.columns = ["Name", "Neuteral", "Democrats", "Republicans"]
+                most_common_sentiment = df_results[['Neuteral', 'Democrats', 'Republicans']].idxmax(axis=1)[0]
                 st.write(f"The most common tweet sentiment is: {most_common_sentiment}")
 
                 fig = px.bar(df, x='Political Sentiment', y='Count',
@@ -98,7 +100,6 @@ else:
                              title='Political Sentiment Distribution')
 
 
-                df.columns = ["Name", "Neuteral", "Democrats", "Republicans"]
 
                 st.dataframe(df)
                 st.plotly_chart(fig)
