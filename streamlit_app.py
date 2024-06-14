@@ -73,7 +73,7 @@ else:
         if not df_results.empty:
             # User exists in BigQuery, display the stored results
             st.write("Results:")
-            df_results.columns = ["Name", "Neuteral", "Democrats", "Republicans"]
+            df_results.columns = ["Name", "Neutral", "Democrats", "Republicans"]
 
 
             df_melted = df_results.melt(id_vars=["Name"], value_vars=["Neuteral", "Democrats", "Republicans"],
@@ -92,7 +92,7 @@ else:
             prediction = get_user_prediction(user)
             if prediction:
                 df = pd.DataFrame(prediction.items(), columns=['Political Sentiment', 'Count'])
-                df.columns = ["Name", "Neuteral", "Democrats", "Republicans"]
+                df.columns = ["Name", "Neutral", "Democrats", "Republicans"]
                 st.dataframe(df)
                 most_common_sentiment = df_results[['Neuteral', 'Democrats', 'Republicans']].idxmax(axis=1)[0]
                 st.write(f"The most common tweet sentiment is: {most_common_sentiment}")
@@ -108,12 +108,12 @@ else:
 
                 # Prepare DF
                 sentiment_counts = {sentiment: count for sentiment, count in prediction.items()}
-                sentiment_counts['name'] = user
+                sentiment_counts['Name'] = user
                 sentiment_counts['Neutral'] = df['Count'][0]
                 sentiment_counts['Democrat'] = df['Count'][1]
                 sentiment_counts['Republican'] = df['Count'][2]
 
-                df_to_save = pd.DataFrame([sentiment_counts], columns=['name', 'neu', 'dem', 'rep'])
+                df_to_save = pd.DataFrame([sentiment_counts], columns=['Name', 'Neuteral', 'Democrats', 'Republicans'])
 
                 # BigQuery load config
                 table_name = "twitpol.twitter_account_history.history"
