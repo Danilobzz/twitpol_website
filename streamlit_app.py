@@ -80,6 +80,7 @@ else:
                                         var_name="Political Sentiment", value_name="Count")
 
             most_common_sentiment = df_results[['Neuteral', 'Democrats', 'Republicans']].idxmax(axis=1)[0]
+            st.dataframe(df_results)
             st.write(f"The most common tweet sentiment is: {most_common_sentiment}")
 
             fig = px.bar(df_melted, x='Political Sentiment', y='Count',
@@ -92,6 +93,7 @@ else:
             if prediction:
                 df = pd.DataFrame(prediction.items(), columns=['Political Sentiment', 'Count'])
                 df.columns = ["Name", "Neuteral", "Democrats", "Republicans"]
+                st.dataframe(df)
                 most_common_sentiment = df_results[['Neuteral', 'Democrats', 'Republicans']].idxmax(axis=1)[0]
                 st.write(f"The most common tweet sentiment is: {most_common_sentiment}")
 
