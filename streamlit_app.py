@@ -72,7 +72,7 @@ else:
 
         if not df_results.empty:
             # User exists in BigQuery, display the stored results
-            st.write("Results from BigQuery:")
+            st.write("Results:")
             st.write(df_results)
 
             df_melted = df_results.melt(id_vars=["name"], value_vars=["neu", "dem", "rep"],
