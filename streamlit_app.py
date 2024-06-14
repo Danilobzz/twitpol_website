@@ -75,8 +75,11 @@ else:
             st.write("Results from BigQuery:")
             st.write(df_results)
 
-            df_melted = df_results.melt(id_vars=["name"], value_vars=["neu", "dem", "rep"],
+            df_melted = df_results.melt(id_vars=["name"], value_vars=["Neutral", "Democrat", "Republican"],
                                         var_name="Political Sentiment", value_name="Count")
+
+            most_common_sentiment = df_results[['Neutral', 'Democrat', 'Republican']].idxmax(axis=1)[0]
+            st.write(f"The most common tweet sentiment is: {most_common_sentiment}")
 
             fig = px.bar(df_melted, x='Political Sentiment', y='Count',
                          labels={'Count': 'Count', 'Political Sentiment': 'Political Sentiment'},
@@ -88,6 +91,8 @@ else:
             if prediction:
                 df = pd.DataFrame(prediction.items(), columns=['Political Sentiment', 'Count'])
 
+                st.write(f"The most common tweet sentiment is: {most_common_sentiment}")
+
                 fig = px.bar(df, x='Political Sentiment', y='Count',
                              labels={'Count': 'Count', 'Political Sentiment': 'Political Sentiment'},
                              title='Political Sentiment Distribution')
@@ -97,12 +102,12 @@ else:
 
                 # Prepare DF
                 sentiment_counts = {sentiment: count for sentiment, count in prediction.items()}
-                sentiment_counts['name'] = user
-                sentiment_counts['neu'] = df['Count'][0]
-                sentiment_counts['dem'] = df['Count'][1]
-                sentiment_counts['rep'] = df['Count'][2]
+                sentiment_counts['Name'] = user
+                sentiment_counts['Neutral'] = df['Count'][0]
+                sentiment_counts['Democrat'] = df['Count'][1]
+                sentiment_counts['Republican'] = df['Count'][2]
 
-                df_to_save = pd.DataFrame([sentiment_counts], columns=['name', 'neu', 'dem', 'rep'])
+                df_to_save = pd.DataFrame([sentiment_counts], columns=['Name', 'Neutral', 'Democrat', 'Republican'])
 
                 # BigQuery load config
                 table_name = "twitpol.twitter_account_history.history"
@@ -114,9 +119,9 @@ else:
                                                  job_config=job_config)
 
 # BigQuery query and display results
-st.header("Results from BigQuery")
-query = "SELECT * FROM `twitpol.twitter_account_history.history` LIMIT 100"
-rows = client.query(query).result()
+#st.header("Results from BigQuery")
+#query = "SELECT * FROM `twitpol.twitter_account_history.history` LIMIT 100"
+#rows = client.query(query).result()
 
-df_rows = pd.DataFrame([dict(row) for row in rows])
-st.write(df_rows)
+#df_rows = pd.DataFrame([dict(row) for row in rows])
+#st.write(df_rows)
