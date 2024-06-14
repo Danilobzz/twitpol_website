@@ -13,7 +13,7 @@ st.title("Twitpol - Political Sentiment Predictor")
 
 def get_tweet_prediction(tweet):
     try:
-        response = requests.get('https://twitpol-ciuj3kmdsa-ew.a.run.app/predict',
+        response = requests.get('https://twitpol-ciuj3kmdsa-ew.a.run.app/predict-text',
                                 params={'tweet': tweet})
 
 # Raise an exception for non-200 status codes
