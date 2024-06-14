@@ -75,7 +75,7 @@ else:
             st.write("Results from BigQuery:")
             st.write(df_results)
 
-            df_melted = df_results.melt(id_vars=["name"], value_vars=["Neutral", "Democrat", "Republican"],
+            df_melted = df_results.melt(id_vars=["Name"], value_vars=["Neutral", "Democrat", "Republican"],
                                         var_name="Political Sentiment", value_name="Count")
 
             most_common_sentiment = df_results[['Neutral', 'Democrat', 'Republican']].idxmax(axis=1)[0]
@@ -90,7 +90,7 @@ else:
             prediction = get_user_prediction(user)
             if prediction:
                 df = pd.DataFrame(prediction.items(), columns=['Political Sentiment', 'Count'])
-
+                most_common_sentiment = df_results[['Neutral', 'Democrat', 'Republican']].idxmax(axis=1)[0]
                 st.write(f"The most common tweet sentiment is: {most_common_sentiment}")
 
                 fig = px.bar(df, x='Political Sentiment', y='Count',
