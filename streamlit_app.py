@@ -94,7 +94,7 @@ else:
                 df = pd.DataFrame(prediction.items(), columns=['Political Sentiment', 'Count'])
                 df.columns = ["Name", "Neutral", "Democrats", "Republicans"]
                 st.dataframe(df)
-                most_common_sentiment = df_results[['Neuteral', 'Democrats', 'Republicans']].idxmax(axis=1)[0]
+                most_common_sentiment = df_results[['Neutral', 'Democrats', 'Republicans']].idxmax(axis=1)[0]
                 st.write(f"The most common tweet sentiment is: {most_common_sentiment}")
 
                 fig = px.bar(df, x='Political Sentiment', y='Count',
