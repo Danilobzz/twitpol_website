@@ -76,10 +76,10 @@ else:
             df_results.columns = ["Name", "Neuteral", "Democrats", "Republicans"]
 
 
-            df_melted = df_results.melt(id_vars=["name"], value_vars=["neu", "dem", "rep"],
+            df_melted = df_results.melt(id_vars=["Name"], value_vars=["Neuteral", "Democrats", "Republicans"],
                                         var_name="Political Sentiment", value_name="Count")
 
-            most_common_sentiment = df_results[['neu', 'dem', 'rep']].idxmax(axis=1)[0]
+            most_common_sentiment = df_results[['Neuteral', 'Democrats', 'Republicans']].idxmax(axis=1)[0]
             st.write(f"The most common tweet sentiment is: {most_common_sentiment}")
 
             fig = px.bar(df_melted, x='Political Sentiment', y='Count',
