@@ -97,7 +97,10 @@ else:
                              labels={'Count': 'Count', 'Political Sentiment': 'Political Sentiment'},
                              title='Political Sentiment Distribution')
 
-                st.write(df)
+
+                df.columns = ["Name", "Neuteral", "Democrats", "Republicans"]
+
+                st.dataframe(df)
                 st.plotly_chart(fig)
 
                 # Prepare DF
@@ -120,8 +123,8 @@ else:
 
 # BigQuery query and display results
 #st.header("Results from BigQuery")
-query = "SELECT * FROM `twitpol.twitter_account_history.history` LIMIT 100"
-rows = client.query(query).result()
-df_rows = pd.DataFrame([dict(row) for row in rows])
-df_rows.columns = ["Name", "Neuteral", "Democrats", "Republicans"]
-st.write(df_rows)
+#query = "SELECT * FROM `twitpol.twitter_account_history.history` LIMIT 100"
+#rows = client.query(query).result()
+#df_rows = pd.DataFrame([dict(row) for row in rows])
+#df_rows.columns = ["Name", "Neuteral", "Democrats", "Republicans"]
+#st.write(df_rows)
