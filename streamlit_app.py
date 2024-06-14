@@ -119,9 +119,9 @@ else:
                                                  job_config=job_config)
 
 # BigQuery query and display results
-#st.header("Results from BigQuery")
-#query = "SELECT * FROM `twitpol.twitter_account_history.history` LIMIT 100"
-#rows = client.query(query).result()
-
-#df_rows = pd.DataFrame([dict(row) for row in rows])
-#st.write(df_rows)
+st.header("Results from BigQuery")
+query = "SELECT * FROM `twitpol.twitter_account_history.history` LIMIT 100"
+rows = client.query(query).result()
+df.columns = ["Name", "Neuteral", "Democrats", "Republicans"]
+df_rows = pd.DataFrame([dict(row) for row in rows])
+st.write(df_rows)
