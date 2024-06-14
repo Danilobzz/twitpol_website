@@ -98,7 +98,7 @@ else:
                 #df_melted = df.melt(id_vars=["Name"], value_vars=["Neuteral", "Democrats", "Republicans"],
                  #                       var_name="Political Sentiment", value_name="Count")
                 #st.write(df)
-                df.columns = ["Name", "Neutral", "Democrats", "Republicans"]
+                #df.columns = ["Name", "Neutral", "Democrats", "Republicans"]
                 st.dataframe(df)
                 most_common_sentiment = df[['Neutral', 'Democrats', 'Republicans']].idxmax(axis=1)[0]
                 st.write(f"The most common tweet sentiment is: {most_common_sentiment}")
