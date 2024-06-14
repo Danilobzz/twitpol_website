@@ -90,20 +90,29 @@ else:
         else:
             # User does not exist, make API request
             prediction = get_user_prediction(user)
-            st.write(prediction)
+
             if prediction:
-                df = pd.DataFrame([{'Name':[user], "Neutral": [prediction["Neutral"]], "Democrats":[prediction["Democratic"]], "Republicans": [prediction["Republican"]]}])
+                #st.write(prediction)
+                df = pd.DataFrame([{ "Neutral": [int(prediction["Neutral"])], "Democrats":[int(prediction["Democratic"])], "Republicans": [int(prediction["Republican"])]}])
+
                 #st.dataframe(df)
-                df = pd.DataFrame(prediction.items(), columns=['Political Sentiment', 'Count'])
+                #df = pd.DataFrame(prediction.items(), columns=['Political Sentiment', 'Count'])
                 #df_melted = df.melt(id_vars=["Name"], value_vars=["Neuteral", "Democrats", "Republicans"],
                  #                       var_name="Political Sentiment", value_name="Count")
                 #st.write(df)
-                #df.columns = ["Name", "Neutral", "Democrats", "Republicans"]
-                st.dataframe(df)
-                most_common_sentiment = df[['Neutral', 'Democrats', 'Republicans']].idxmax(axis=1)[0]
-                st.write(f"The most common tweet sentiment is: {most_common_sentiment}")
+                df.columns = ["Neutral", "Democrats", "Republicans"]
+                st.header(user)
+                #st.dataframe(df)
+                #most_common_sentiment = df[['Neutral', 'Democrats', 'Republicans']].idxmax(axis=1)[0]
+                most_common_sentiment = pd.DataFrame(prediction.items()).sort_values(1, ascending=False).iloc[0][0]
+                #st.write(df_most_common)
 
-                fig = px.bar(df, x='Political Sentiment', y='Count',
+                st.success(f"The most common tweet sentiment is: {most_common_sentiment}")
+
+                df_for_bar = pd.DataFrame(prediction.items(), columns=['Political Sentiment', 'Count'])
+                #fig = px.bar()
+
+                fig = px.bar(df_for_bar, x='Political Sentiment', y='Count',
                              labels={'Count': 'Count', 'Political Sentiment': 'Political Sentiment'},
                              title='Political Sentiment Distribution')
 
@@ -113,17 +122,17 @@ else:
                 st.plotly_chart(fig)
 
                 # Prepare DF
-                sentiment_counts = {sentiment: count for sentiment, count in prediction.items()}
-                sentiment_counts['Name'] = user
-                sentiment_counts['Neutral'] = df['Count'][0]
-                sentiment_counts['Democrat'] = df['Count'][1]
-                sentiment_counts['Republican'] = df['Count'][2]
+                #sentiment_counts = {sentiment: count for sentiment, count in prediction.items()}
+                #sentiment_counts['Name'] = user
+                #sentiment_counts['Neutral'] = df['Count'][0]
+                #sentiment_counts['Democrat'] = df['Count'][1]
+                #sentiment_counts['Republican'] = df['Count'][2]
 
-                df_to_save = pd.DataFrame([sentiment_counts], columns=['Name', 'Neuteral', 'Democrats', 'Republicans'])
+                #df_to_save = pd.DataFrame([sentiment_counts], columns=['Name', 'Neuteral', 'Democrats', 'Republicans'])
 
                 # BigQuery load config
-                table_name = "twitpol.twitter_account_history.history"
-                job_config = bigquery.LoadJobConfig(write_disposition="WRITE_APPEND")
+                #table_name = "twitpol.twitter_account_history.history"
+                #job_config = bigquery.LoadJobConfig(write_disposition="WRITE_APPEND")
 
                 # Load data to BigQuery
                 #client.load_table_from_dataframe(dataframe=df_to_save,
