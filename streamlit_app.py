@@ -92,7 +92,7 @@ else:
             prediction = get_user_prediction(user)
             st.write(prediction)
             if prediction:
-                df = pd.DataFrame([{'Name':[user], "Neuteral": [prediction["Neutral"]], "Democrats":[prediction["Democrats"]], "Republicans": [prediction["Republicans"]]}])
+                df = pd.DataFrame([{'Name':[user], "Neutral": [prediction["Neutral"]], "Democrats":[prediction["Democrats"]], "Republicans": [prediction["Republicans"]]}])
                 st.dataframe(df)
                 df = pd.DataFrame(prediction.items(), columns=['Political Sentiment', 'Count'])
                 df_melted = df.melt(id_vars=["Name"], value_vars=["Neuteral", "Democrats", "Republicans"],
