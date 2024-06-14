@@ -75,7 +75,7 @@ else:
             st.write("Results from BigQuery:")
             st.write(df_results)
 
-            df_melted = df_results.melt(id_vars=["Name"], value_vars=["Neutral", "Democrat", "Republican"],
+            df_melted = df_results.melt(id_vars=["name"], value_vars=["Neutral", "Democrat", "Republican"],
                                         var_name="Political Sentiment", value_name="Count")
 
             most_common_sentiment = df_results[['Neutral', 'Democrat', 'Republican']].idxmax(axis=1)[0]
@@ -102,12 +102,12 @@ else:
 
                 # Prepare DF
                 sentiment_counts = {sentiment: count for sentiment, count in prediction.items()}
-                sentiment_counts['Name'] = user
+                sentiment_counts['name'] = user
                 sentiment_counts['Neutral'] = df['Count'][0]
                 sentiment_counts['Democrat'] = df['Count'][1]
                 sentiment_counts['Republican'] = df['Count'][2]
 
-                df_to_save = pd.DataFrame([sentiment_counts], columns=['Name', 'Neutral', 'Democrat', 'Republican'])
+                df_to_save = pd.DataFrame([sentiment_counts], columns=['name', 'Neutral', 'Democrat', 'Republican'])
 
                 # BigQuery load config
                 table_name = "twitpol.twitter_account_history.history"
