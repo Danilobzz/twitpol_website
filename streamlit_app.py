@@ -93,6 +93,8 @@ else:
             st.write(prediction)
             if prediction:
                 df = pd.DataFrame(prediction.items(), columns=['Political Sentiment', 'Count'])
+                df_melted = df.melt(id_vars=["Name"], value_vars=["Neuteral", "Democrats", "Republicans"],
+                                        var_name="Political Sentiment", value_name="Count")
                 st.write(df)
                 df.columns = ["Name", "Neutral", "Democrats", "Republicans"]
                 st.dataframe(df)
