@@ -126,9 +126,9 @@ else:
                 job_config = bigquery.LoadJobConfig(write_disposition="WRITE_APPEND")
 
                 # Load data to BigQuery
-                client.load_table_from_dataframe(dataframe=df_to_save,
-                                                 destination=table_name,
-                                                 job_config=job_config)
+                #client.load_table_from_dataframe(dataframe=df_to_save,
+                #                                 destination=table_name,
+                #                                 job_config=job_config)
 
 # BigQuery query and display results
 #st.header("Results from BigQuery")
