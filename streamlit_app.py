@@ -90,6 +90,7 @@ else:
         else:
             # User does not exist, make API request
             prediction = get_user_prediction(user)
+            st.write(prediction)
             if prediction:
                 df = pd.DataFrame(prediction.items(), columns=['Political Sentiment', 'Count'])
                 df.columns = ["Name", "Neutral", "Democrats", "Republicans"]
